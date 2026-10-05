@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Private Lab Inventory</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="loginView" class="login-wrap">
+  <div class="login-card">
+    <div class="brand">AIC-PECF</div>
+    <h1>Private Lab Inventory</h1>
+    <p class="muted">Authorized officials only</p>
+    <form id="loginForm">
+      <label>Email</label>
+      <input id="email" type="email" placeholder="official@example.com" required>
+      <label>Password</label>
+      <input id="password" type="password" placeholder="Password" required>
+      <button class="primary" type="submit">Sign in</button>
+      <p id="loginError" class="error"></p>
+    </form>
+    <div class="demo-note">Prototype login: <b>admin@lab.local</b> / <b>Admin@123</b></div>
+  </div>
+</div>
+
+<div id="appView" class="hidden">
+  <aside class="sidebar">
+    <div class="brand">AIC-PECF</div>
+    <h2>Lab Inventory</h2>
+    <button class="nav active" data-page="dashboard">Dashboard</button>
+    <button class="nav" data-page="inventory">Inventory</button>
+    <button class="nav" data-page="transactions">Transactions</button>
+    <button class="nav admin-only" data-page="officials">Officials</button>
+    <button class="nav admin-only" data-page="settings">Settings</button>
+    <button id="logoutBtn" class="logout">Logout</button>
+  </aside>
+
+  <main class="main">
+    <header>
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p class="muted">Private access • <span id="roleText"></span></p>
+      </div>
+      <div class="user-pill" id="userText"></div>
+    </header>
+
+    <section id="dashboard" class="page">
+      <div class="cards">
+        <div class="card"><span>Total Items</span><strong id="totalItems">0</strong></div>
+        <div class="card"><span>Available Units</span><strong id="availableUnits">0</strong></div>
+        <div class="card"><span>Issued Units</span><strong id="issuedUnits">0</strong></div>
+        <div class="card"><span>Low Stock</span><strong id="lowStock">0</strong></div>
+      </div>
+      <div class="panel">
+        <div class="panel-head"><h2>Recent Transactions</h2></div>
+        <div id="recentTransactions"></div>
+      </div>
+    </section>
+
+    <section id="inventory" class="page hidden">
+      <div class="toolbar">
+        <input id="searchInput" placeholder="Search component, ID, category, bero...">
+        <button id="addItemBtn" class="primary admin-only">+ Add Component</button>
+      </div>
+      <div class="panel"><div id="inventoryTable"></div></div>
+    </section>
+
+    <section id="transactions" class="page hidden">
+      <div class="panel">
+        <div class="panel-head"><h2>Transaction History</h2></div>
+        <div id="transactionsTable"></div>
+      </div>
+    </section>
+
+    <section id="officials" class="page hidden admin-only">
+      <div class="panel">
+        <div class="panel-head"><h2>Authorized Officials</h2><button id="addOfficialBtn" class="primary">+ Add Official</button></div>
+        <div id="officialsTable"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="page hidden admin-only">
+      <div class="panel">
+        <h2>Security & System</h2>
+        <p>This prototype uses local storage. Before production use, connect Firebase Authentication and Firestore security rules.</p>
+        <ul>
+          <li>Admin: full inventory and user management.</li>
+          <li>Official: issue/return and view inventory.</li>
+          <li>Students/public users: no access.</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</div>
+
+<div id="modal" class="modal hidden">
+  <div class="modal-card">
+    <button id="closeModal" class="close">×</button>
+    <div id="modalContent"></div>
+  </div>
+</div>
+<script src="app.js"></script>
+</body>
+</html>
